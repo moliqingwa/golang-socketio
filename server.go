@@ -367,7 +367,7 @@ func (s *Server) AmountOfRooms() int64 {
 /**
 Create new socket.io server
 */
-func NewServer(tr transport.Transport) *Server {
+func NewServer(tr transport.Transport, serialize Serialize) *Server {
 	s := Server{}
 	s.initMethods()
 	s.tr = tr
@@ -376,6 +376,7 @@ func NewServer(tr transport.Transport) *Server {
 	s.sids = make(map[string]*Channel)
 	s.onConnection = onConnectStore
 	s.onDisconnection = onDisconnectCleanup
+	s.serialize = serialize
 
 	return &s
 }
